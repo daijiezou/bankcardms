@@ -3,6 +3,7 @@ module BankCardMS
 go 1.19
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.8.2
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b

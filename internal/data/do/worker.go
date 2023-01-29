@@ -7,9 +7,20 @@ type Worker struct {
 	Sex        int    `json:"sex" xorm:"default 1 comment('1:男性；2：女性') INT"`
 	CreateTime int64  `json:"create_time" xorm:"not null default 0 BIGINT"`
 	UpdateTime int64  `json:"update_time" xorm:"not null default 0 BIGINT"`
-	DeleteTime int64  `json:"delete_time" xorm:"default 0 BIGINT"`
+	DeleteTime int    `json:"delete_time" xorm:"deleted not null default 0 INT"`
 }
 
 func (m *Worker) TableName() string {
 	return "worker"
+}
+
+type WorkerList struct {
+	ListCount int      `json:"list_count"`
+	Workers   []Worker `json:"workers"`
+}
+
+type WorkerListReq struct {
+	Filter   string `json:"filter" form:"filter"`
+	PageNum  int    `json:"page_num" form:"page_num" binding:"min=1"`
+	PageSize int    `json:"page_size" form:"page_size" binding:"min=1,max=100"`
 }

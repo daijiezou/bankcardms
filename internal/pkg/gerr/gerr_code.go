@@ -17,6 +17,7 @@ const (
 	ErrCodeLoginError       ResCode = 154012
 	ErrCodeLoginAuthError   ResCode = 154013
 	ErrCodeWrongParam       ResCode = 154014
+	ErrCodeInvalidPassword  ResCode = 154015
 
 	// 0-29 warning 30+ error
 	ErrCodeServerBusy   ResCode = 155030
@@ -34,9 +35,10 @@ var errorText = map[ResCode]string{
 	ErrCodeWrongParam:       "数据错误:请求参数不正确",
 	ErrCodeLoginAuthError:   "认证错误:用户未授权",
 
-	ErrCodeServerBusy:   "系统错误:服务繁忙，请稍后再试",
-	ErrCodeDbError:      "系统错误:数据库错误",
-	ErrCodeNetworkError: "系统错误:网络错误",
+	ErrCodeServerBusy:      "系统错误:服务繁忙，请稍后再试",
+	ErrCodeDbError:         "系统错误:数据库错误",
+	ErrCodeNetworkError:    "系统错误:网络错误",
+	ErrCodeInvalidPassword: "用户名或密码错误",
 }
 
 func (r ResCode) Msg() string {

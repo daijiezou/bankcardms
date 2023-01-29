@@ -1,6 +1,7 @@
 package worker
 
 import (
+	"BankCardMS/internal/pkg/middware"
 	"BankCardMS/internal/service/worker"
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +13,10 @@ const (
 
 func Router(e *gin.Engine) {
 	r := e.Group(RootApi)
+	r.Use(middware.JWTAuthMiddleware())
 	r.POST("/worker", worker.Add)
 	r.GET("", worker.List)
 	r.GET("/worker/:worker_id", worker.Detail)
+	r.DELETE("/worker/:worker_id", worker.Delete)
+	r.PUT("/worker/:worker_id", worker.Update)
 }

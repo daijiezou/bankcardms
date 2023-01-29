@@ -2,8 +2,10 @@ package main
 
 import (
 	"BankCardMS/config"
+	"BankCardMS/inits"
 	"BankCardMS/internal/data/mysql"
 	"BankCardMS/internal/pkg/glog"
+	"BankCardMS/internal/pkg/jwt"
 	"BankCardMS/internal/pkg/middware"
 	"BankCardMS/internal/pkg/shutdown"
 	"BankCardMS/route/user"
@@ -24,6 +26,8 @@ func init() {
 	flag.Parse()
 	config.ParseConfig("bank-card-ms", *configFile, *env)
 	mysql.Init(config.Config.DbDsn)
+	inits.InitAdmin()
+	jwt.InitSecret()
 }
 
 func main() {
