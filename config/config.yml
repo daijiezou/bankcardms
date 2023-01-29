@@ -1,0 +1,5 @@
+bank-card-ms:
+  release:
+    env: release
+    httpPort: 10031
+    dbDsn: root:dai3023273@tcp(101.35.6.121:3306)/bank-card-ms?charset=utf8
