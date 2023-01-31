@@ -6,6 +6,7 @@ import (
 	"BankCardMS/internal/pkg/gerr"
 	"BankCardMS/internal/pkg/glog"
 	"BankCardMS/internal/pkg/response"
+	"BankCardMS/internal/service/commonreq"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -44,7 +45,7 @@ func Add(c *gin.Context) {
 }
 
 func List(c *gin.Context) {
-	req := new(do.WorkerListReq)
+	req := new(commonreq.CommonListReq)
 	if err := c.ShouldBind(req); err != nil {
 		glog.Warnf("req params check failed:%v,req params:%+v", err, req)
 		response.ErrorCode(c, gerr.ErrCodeWrongParam)

@@ -10,7 +10,7 @@ type User struct {
 	Email       string `json:"email" xorm:"not null VARCHAR(256)"`
 	UpdateTime  int64  `json:"update_time" xorm:"default 0 BIGINT"`
 	CreateTime  int64  `json:"create_time" xorm:"default 0 BIGINT"`
-	DeleteTime  int    `json:"delete_time" xorm:"deleted not null default 0 INT"`
+	DeleteTime  int64  `json:"delete_time" xorm:"default 0 BIGINT"`
 }
 
 func (m *User) TableName() string {

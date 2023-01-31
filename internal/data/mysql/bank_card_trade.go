@@ -3,15 +3,13 @@ package mysql
 import (
 	"BankCardMS/internal/data/do"
 	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/pkg/glog"
 	"BankCardMS/internal/service/commonreq"
 	"BankCardMS/internal/service/vo"
 	"github.com/pkg/errors"
 )
 
-func AddWorker(worker *do.Worker) error {
-	glog.Infof("worker:%+v", worker)
-	_, err := MySQL().Insert(worker)
+func AddBankCardTrade(bankCardTrade *do.BankCardTrade) error {
+	_, err := MySQL().Insert(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
@@ -22,9 +20,9 @@ func AddWorker(worker *do.Worker) error {
 	return nil
 }
 
-func DeleteWorker(workerId string) error {
-	worker := new(do.Worker)
-	count, err := MySQL().Where("worker_id = ?", workerId).Delete(worker)
+func DeleteBankCardTrade(tradeId string) error {
+	bankCardTrade := new(do.BankCardTrade)
+	count, err := MySQL().Where("trade_id = ?", tradeId).Delete(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
@@ -42,28 +40,28 @@ func DeleteWorker(workerId string) error {
 	return nil
 }
 
-func GetWorker(workerId string) (*do.Worker, error) {
-	worker := new(do.Worker)
-	has, err := MySQL().Table("worker").Where("worker_id = ?", workerId).Get(worker)
+func GetBankCardTrade(tradeId string) (*do.BankCardTrade, error) {
+	bankCardTrade := new(do.BankCardTrade)
+	has, err := MySQL().Where("trade_id = ?", tradeId).Get(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
 			CauseMsg: err.Error(),
 		}
-		return worker, errors.WithStack(gErr)
+		return bankCardTrade, errors.WithStack(gErr)
 	}
 	if !has {
 		gErr := &gerr.GeminiError{
 			Code: gerr.ErrCodeDataNotFound,
 			Err:  gerr.ErrDataNotFound,
 		}
-		return worker, errors.WithStack(gErr)
+		return bankCardTrade, errors.WithStack(gErr)
 	}
-	return worker, nil
+	return bankCardTrade, nil
 }
 
-func UpdateWorker(workerId string, worker *do.Worker, cols ...string) error {
-	_, err := MySQL().Table("worker").Where("worker_id = ?", workerId).Cols(cols...).Update(worker)
+func UpdateBankCardTrade(tradeId string, bankCardTrade *do.BankCardTrade, cols ...string) error {
+	_, err := MySQL().Where("trade_id = ?", tradeId).Cols(cols...).Update(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
@@ -74,17 +72,17 @@ func UpdateWorker(workerId string, worker *do.Worker, cols ...string) error {
 	return nil
 }
 
-func ListWorkers(req *commonreq.CommonListReq) (result *vo.WorkerList, err error) {
-	result = new(vo.WorkerList)
-	session := MySQL().Table("worker").Select("*").And("delete_time = ?", 0)
+func ListBankCardTrade(req *commonreq.CommonListReq) (result *vo.BankCardTradeList, err error) {
+	result = new(vo.BankCardTradeList)
+	session := MySQL().Select("*").And("delete_time = ?", 0)
 	if req.Filter != "" {
 		session.And("name like ?", "%"+req.Filter+"%")
 
 	}
 	count, err := session.
 		Limit(req.PageSize, req.PageSize*(req.PageNum-1)).
-		Desc("worker.create_time").
-		FindAndCount(&result.Workers)
+		Desc("create_time").
+		FindAndCount(&result.BankCardTrades)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,

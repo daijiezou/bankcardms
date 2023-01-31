@@ -13,7 +13,12 @@ define push_image
 endef
 
 
+
 default: tidy local
+
+reverse:
+	reverse -f reverse.yaml
+
 tidy:
 	go mod tidy -compat=1.18
 test:
