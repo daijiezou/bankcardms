@@ -1,5 +1,0 @@
-package bankcard
-
-func AddTrade() {
-
-}

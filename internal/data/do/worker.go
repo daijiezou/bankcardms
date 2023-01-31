@@ -8,6 +8,7 @@ type Worker struct {
 	CreateTime int64  `json:"create_time" xorm:"not null default 0 BIGINT"`
 	UpdateTime int64  `json:"update_time" xorm:"not null default 0 BIGINT"`
 	DeleteTime int    `json:"delete_time" xorm:"not null default 0 INT"`
+	Remarks    string `json:"remarks" xorm:"not null TEXT"`
 }
 
 func (m *Worker) TableName() string {

@@ -16,6 +16,7 @@ func Add(c *gin.Context) {
 		WorkerId string `json:"workerId" binding:"required"`
 		Name     string `json:"name" binding:"required"`
 		Address  string `json:"address"`
+		Remarks  string `json:"remarks"`
 		Sex      int    `json:"sex" binding:"oneof=1 2"`
 	}
 	req := new(AddWorkerRequest)
@@ -30,6 +31,7 @@ func Add(c *gin.Context) {
 		Name:       req.Name,
 		Address:    req.Address,
 		Sex:        req.Sex,
+		Remarks:    req.Remarks,
 		CreateTime: now,
 		UpdateTime: now,
 	}
@@ -93,6 +95,7 @@ func Update(c *gin.Context) {
 		Name    string `json:"name" binding:"required"`
 		Address string `json:"address"`
 		Sex     int    `json:"sex" binding:"oneof=1 2"`
+		Remarks string `json:"remarks"`
 	}
 	req := new(AddWorkerRequest)
 	if err := c.ShouldBind(req); err != nil {
@@ -105,9 +108,10 @@ func Update(c *gin.Context) {
 		Name:       req.Name,
 		Address:    req.Address,
 		Sex:        req.Sex,
+		Remarks:    req.Remarks,
 		UpdateTime: time.Now().UnixMilli(),
 	}
-	err := mysql.UpdateWorker(workerId, worker, "name", "address", "sex", "update_time")
+	err := mysql.UpdateWorker(workerId, worker, "name", "address", "sex", "update_time", "remarks")
 	if err != nil {
 		geminiErr := gerr.FromError(err)
 		glog.Errorf(geminiErr.ErrorWithMsg(err, "add worker failed"))
