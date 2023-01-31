@@ -14,3 +14,8 @@ type BankCardTrade struct {
 func (m *BankCardTrade) TableName() string {
 	return "bank_card_trade"
 }
+
+type BankCardTradeList struct {
+	ListCount      int             `json:"list_count"`
+	BankCardTrades []BankCardTrade `json:"workers"`
+}

@@ -58,6 +58,7 @@ func List(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
+	//todo 当年总收入
 	response.Success(c, result)
 	return
 }
@@ -71,6 +72,7 @@ func Detail(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
+	//todo 近三年总收入
 	response.Success(c, bankCard)
 	return
 }

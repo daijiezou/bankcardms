@@ -4,7 +4,6 @@ import (
 	"BankCardMS/internal/data/do"
 	"BankCardMS/internal/pkg/gerr"
 	"BankCardMS/internal/service/commonreq"
-	"BankCardMS/internal/service/vo"
 	"github.com/pkg/errors"
 )
 
@@ -72,8 +71,8 @@ func UpdateBankCardTrade(tradeId string, bankCardTrade *do.BankCardTrade, cols .
 	return nil
 }
 
-func ListBankCardTrade(req *commonreq.CommonListReq) (result *vo.BankCardTradeList, err error) {
-	result = new(vo.BankCardTradeList)
+func ListBankCardTrade(req *commonreq.CommonListReq) (result *do.BankCardTradeList, err error) {
+	result = new(do.BankCardTradeList)
 	session := MySQL().Select("*").And("delete_time = ?", 0)
 	if req.Filter != "" {
 		session.And("name like ?", "%"+req.Filter+"%")

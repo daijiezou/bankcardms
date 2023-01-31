@@ -35,4 +35,4 @@ targets:
         return "{{$table.Name}}"
       }
       {{end}}
-    output_dir: ./internal/data/do # code output directory
+    output_dir: ./internal/data/do/tmp # code output directory

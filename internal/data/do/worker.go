@@ -14,3 +14,8 @@ type Worker struct {
 func (m *Worker) TableName() string {
 	return "worker"
 }
+
+type WorkerList struct {
+	ListCount int      `json:"list_count"`
+	Workers   []Worker `json:"workers"`
+}
