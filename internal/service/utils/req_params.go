@@ -1,4 +1,4 @@
-package commonreq
+package utils
 
 type CommonListReq struct {
 	Filter   string `json:"filter" form:"filter"`

@@ -4,7 +4,7 @@ import (
 	"BankCardMS/internal/data/do"
 	"BankCardMS/internal/pkg/gerr"
 	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/service/commonreq"
+	"BankCardMS/internal/service/utils"
 	"github.com/pkg/errors"
 )
 
@@ -73,7 +73,7 @@ func UpdateWorker(workerId string, worker *do.Worker, cols ...string) error {
 	return nil
 }
 
-func ListWorkers(req *commonreq.CommonListReq) (result *do.WorkerList, err error) {
+func ListWorkers(req *utils.CommonListReq) (result *do.WorkerList, err error) {
 	result = new(do.WorkerList)
 	session := MySQL().Table("worker").Select("*").And("delete_time = ?", 0)
 	if req.Filter != "" {

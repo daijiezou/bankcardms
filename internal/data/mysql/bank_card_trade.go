@@ -3,7 +3,7 @@ package mysql
 import (
 	"BankCardMS/internal/data/do"
 	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/service/commonreq"
+	"BankCardMS/internal/service/utils"
 	"github.com/pkg/errors"
 )
 
@@ -71,7 +71,7 @@ func UpdateBankCardTrade(tradeId string, bankCardTrade *do.BankCardTrade, cols .
 	return nil
 }
 
-func ListBankCardTrade(req *commonreq.CommonListReq) (result *do.BankCardTradeList, err error) {
+func ListBankCardTrade(req *utils.CommonListReq) (result *do.BankCardTradeList, err error) {
 	result = new(do.BankCardTradeList)
 	session := MySQL().Select("*").And("delete_time = ?", 0)
 	if req.Filter != "" {

@@ -8,6 +8,7 @@ import (
 	"BankCardMS/internal/pkg/jwt"
 	"BankCardMS/internal/pkg/middware"
 	"BankCardMS/internal/pkg/shutdown"
+	"BankCardMS/route/bankcard"
 	"BankCardMS/route/user"
 	"BankCardMS/route/worker"
 	"context"
@@ -58,4 +59,5 @@ func route(r *gin.Engine) {
 	})
 	user.Router(r)
 	worker.Router(r)
+	bankcard.Router(r)
 }
