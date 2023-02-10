@@ -1,8 +1,8 @@
 package bankcard
 
 import (
-	"BankCardMS/internal/pkg/middware"
-	"BankCardMS/internal/service/bankcard"
+	"BankCardMS/pkg/middware"
+	"BankCardMS/service/bankcard"
 	"github.com/gin-gonic/gin"
 )
 

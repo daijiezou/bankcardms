@@ -1,12 +1,12 @@
 package worker
 
 import (
-	"BankCardMS/internal/data/do"
-	"BankCardMS/internal/data/mysql"
-	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/pkg/response"
-	"BankCardMS/internal/service/utils"
+	"BankCardMS/data/do"
+	"BankCardMS/data/mysql"
+	"BankCardMS/pkg/gerr"
+	"BankCardMS/pkg/glog"
+	"BankCardMS/pkg/response"
+	"BankCardMS/service/utils"
 	"github.com/gin-gonic/gin"
 	"time"
 )

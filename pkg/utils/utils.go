@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"BankCardMS/internal/constant"
+	"BankCardMS/constant"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 )

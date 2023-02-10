@@ -2,12 +2,12 @@ package main
 
 import (
 	"BankCardMS/config"
+	"BankCardMS/data/mysql"
 	"BankCardMS/inits"
-	"BankCardMS/internal/data/mysql"
-	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/pkg/jwt"
-	"BankCardMS/internal/pkg/middware"
-	"BankCardMS/internal/pkg/shutdown"
+	"BankCardMS/pkg/glog"
+	"BankCardMS/pkg/jwt"
+	"BankCardMS/pkg/middware"
+	"BankCardMS/pkg/shutdown"
 	"BankCardMS/route/bankcard"
 	"BankCardMS/route/user"
 	"BankCardMS/route/worker"

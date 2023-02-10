@@ -1,14 +1,14 @@
 package mysql
 
 import (
-	"BankCardMS/internal/data/do"
-	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/service/utils"
+	"BankCardMS/data/do"
+	"BankCardMS/pkg/gerr"
+	"BankCardMS/service/utils"
 	"github.com/pkg/errors"
 )
 
-func AddBankCard(bankCard *do.BankCard) error {
-	_, err := MySQL().Insert(bankCard)
+func AddBankCardTrade(bankCardTrade *do.BankCardTrade) error {
+	_, err := MySQL().Insert(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
@@ -19,9 +19,9 @@ func AddBankCard(bankCard *do.BankCard) error {
 	return nil
 }
 
-func DeleteBankCard(cardId string) error {
-	bankCard := new(do.BankCard)
-	count, err := MySQL().Where("card_id = ?", cardId).Delete(bankCard)
+func DeleteBankCardTrade(tradeId string) error {
+	bankCardTrade := new(do.BankCardTrade)
+	count, err := MySQL().Where("trade_id = ?", tradeId).Delete(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
@@ -39,28 +39,28 @@ func DeleteBankCard(cardId string) error {
 	return nil
 }
 
-func GetBankCard(cardId string) (*do.BankCard, error) {
-	bankCard := new(do.BankCard)
-	has, err := MySQL().Where("card_id = ?", cardId).Get(bankCard)
+func GetBankCardTrade(tradeId string) (*do.BankCardTrade, error) {
+	bankCardTrade := new(do.BankCardTrade)
+	has, err := MySQL().Where("trade_id = ?", tradeId).Get(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
 			CauseMsg: err.Error(),
 		}
-		return bankCard, errors.WithStack(gErr)
+		return bankCardTrade, errors.WithStack(gErr)
 	}
 	if !has {
 		gErr := &gerr.GeminiError{
 			Code: gerr.ErrCodeDataNotFound,
 			Err:  gerr.ErrDataNotFound,
 		}
-		return bankCard, errors.WithStack(gErr)
+		return bankCardTrade, errors.WithStack(gErr)
 	}
-	return bankCard, nil
+	return bankCardTrade, nil
 }
 
-func UpdateBankCard(cardId string, bankCard *do.BankCard, cols ...string) error {
-	_, err := MySQL().Where("card_id = ?", cardId).Cols(cols...).Update(bankCard)
+func UpdateBankCardTrade(tradeId string, bankCardTrade *do.BankCardTrade, cols ...string) error {
+	_, err := MySQL().Where("trade_id = ?", tradeId).Cols(cols...).Update(bankCardTrade)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,
@@ -71,9 +71,9 @@ func UpdateBankCard(cardId string, bankCard *do.BankCard, cols ...string) error 
 	return nil
 }
 
-func ListBankCard(req *utils.CommonListReq) (result *do.BankCardList, err error) {
-	result = new(do.BankCardList)
-	session := MySQL().Table("worker").Select("*").And("delete_time = ?", 0)
+func ListBankCardTrade(req *utils.CommonListReq) (result *do.BankCardTradeList, err error) {
+	result = new(do.BankCardTradeList)
+	session := MySQL().Select("*").And("delete_time = ?", 0)
 	if req.Filter != "" {
 		session.And("name like ?", "%"+req.Filter+"%")
 
@@ -81,7 +81,7 @@ func ListBankCard(req *utils.CommonListReq) (result *do.BankCardList, err error)
 	count, err := session.
 		Limit(req.PageSize, req.PageSize*(req.PageNum-1)).
 		Desc("create_time").
-		FindAndCount(&result.BankCards)
+		FindAndCount(&result.BankCardTrades)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,

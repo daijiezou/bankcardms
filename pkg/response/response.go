@@ -1,7 +1,7 @@
 package response
 
 import (
-	"BankCardMS/internal/pkg/gerr"
+	"BankCardMS/pkg/gerr"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

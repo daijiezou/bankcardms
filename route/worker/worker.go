@@ -1,8 +1,8 @@
 package worker
 
 import (
-	"BankCardMS/internal/pkg/middware"
-	"BankCardMS/internal/service/worker"
+	"BankCardMS/pkg/middware"
+	"BankCardMS/service/worker"
 	"github.com/gin-gonic/gin"
 )
 

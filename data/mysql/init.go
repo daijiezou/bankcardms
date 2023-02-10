@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"BankCardMS/internal/pkg/glog"
+	"BankCardMS/pkg/glog"
 	_ "github.com/go-sql-driver/mysql"
 	"xorm.io/xorm"
 	"xorm.io/xorm/log"

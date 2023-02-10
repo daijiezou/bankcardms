@@ -1,10 +1,10 @@
 package mysql
 
 import (
-	"BankCardMS/internal/data/do"
-	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/service/utils"
+	"BankCardMS/data/do"
+	"BankCardMS/pkg/gerr"
+	"BankCardMS/pkg/glog"
+	"BankCardMS/service/utils"
 	"github.com/pkg/errors"
 )
 

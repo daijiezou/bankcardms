@@ -1,11 +1,11 @@
 package middware
 
 import (
-	"BankCardMS/internal/constant"
-	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/pkg/jwt"
-	"BankCardMS/internal/pkg/response"
+	"BankCardMS/constant"
+	"BankCardMS/pkg/gerr"
+	"BankCardMS/pkg/glog"
+	"BankCardMS/pkg/jwt"
+	"BankCardMS/pkg/response"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"

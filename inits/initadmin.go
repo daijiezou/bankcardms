@@ -1,10 +1,10 @@
 package inits
 
 import (
-	"BankCardMS/internal/data/do"
-	"BankCardMS/internal/data/mysql"
-	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/service/user"
+	"BankCardMS/data/do"
+	"BankCardMS/data/mysql"
+	"BankCardMS/pkg/glog"
+	"BankCardMS/service/user"
 	"time"
 )
 

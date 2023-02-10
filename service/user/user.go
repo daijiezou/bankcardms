@@ -1,13 +1,13 @@
 package user
 
 import (
-	"BankCardMS/internal/data/do"
-	"BankCardMS/internal/data/mysql"
-	"BankCardMS/internal/pkg/gerr"
-	"BankCardMS/internal/pkg/glog"
-	"BankCardMS/internal/pkg/jwt"
-	"BankCardMS/internal/pkg/response"
-	"BankCardMS/internal/pkg/utils"
+	"BankCardMS/data/do"
+	"BankCardMS/data/mysql"
+	"BankCardMS/pkg/gerr"
+	"BankCardMS/pkg/glog"
+	"BankCardMS/pkg/jwt"
+	"BankCardMS/pkg/response"
+	"BankCardMS/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"time"
 )

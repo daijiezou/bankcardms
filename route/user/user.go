@@ -1,8 +1,8 @@
 package user
 
 import (
-	"BankCardMS/internal/pkg/middware"
-	"BankCardMS/internal/service/user"
+	"BankCardMS/pkg/middware"
+	"BankCardMS/service/user"
 	"github.com/gin-gonic/gin"
 )
 
