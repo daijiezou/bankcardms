@@ -71,9 +71,10 @@ func UpdateBankCardTrade(tradeId string, bankCardTrade *do.BankCardTrade, cols .
 	return nil
 }
 
-func ListBankCardTrade(req *utils.CommonListReq) (result *do.BankCardTradeList, err error) {
+func ListBankCardTrade(req *utils.CommonListReq, bankCardId string) (result *do.BankCardTradeList, err error) {
 	result = new(do.BankCardTradeList)
-	session := MySQL().Select("*").And("delete_time = ?", 0)
+	session := MySQL().Table("bank_card_trade").Select("*").And("delete_time = ?", 0).
+		Where("card_id = ?", bankCardId)
 	if req.Filter != "" {
 		session.And("name like ?", "%"+req.Filter+"%")
 
@@ -91,4 +92,17 @@ func ListBankCardTrade(req *utils.CommonListReq) (result *do.BankCardTradeList, 
 	}
 	result.ListCount = int(count)
 	return
+}
+
+func GetBankCardIncome(bankCardId string, start, end int64) (result int64, err error) {
+	count, err := MySQL().Table("bank_card_trade").Where("card_id = ?", bankCardId).
+		Where("trade_time >= ? and trade_time <= ?", start, end).Sum(new(do.BankCardTrade), "trade_amount")
+	if err != nil {
+		gErr := &gerr.GeminiError{
+			Code:     gerr.ErrCodeDbError,
+			CauseMsg: err.Error(),
+		}
+		return int64(count), errors.Wrapf(gErr, "bankCardId:%v,", bankCardId)
+	}
+	return int64(count), nil
 }

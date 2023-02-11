@@ -1,5 +1,7 @@
 package vo
 
+import "BankCardMS/data/do"
+
 type BankCardList struct {
 	ListCount int        `json:"list_count"`
 	BankCards []BankCard `json:"workers"`
@@ -14,4 +16,10 @@ type BankCard struct {
 	CurrentYearTotalIncome int    `json:"current_year_total_income"`
 	CreateTime             int64  `json:"create_time" xorm:"not null default 0 BIGINT"`
 	UpdateTime             int64  `json:"update_time" xorm:"not null default 0 BIGINT"`
+}
+
+type BankCardDetail struct {
+	BankCardInfo           *do.BankCard          `json:"bank_card_info"`
+	TradeList              *do.BankCardTradeList `json:"trade_list"`
+	CurrentYearTotalIncome int64                 `json:"current_year_total_income"`
 }

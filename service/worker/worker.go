@@ -6,7 +6,9 @@ import (
 	"BankCardMS/pkg/gerr"
 	"BankCardMS/pkg/glog"
 	"BankCardMS/pkg/response"
+	gutils "BankCardMS/pkg/utils"
 	"BankCardMS/service/utils"
+	"BankCardMS/service/vo"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -47,6 +49,7 @@ func Add(c *gin.Context) {
 }
 
 func List(c *gin.Context) {
+	glog.Info("list workers")
 	req := new(utils.CommonListReq)
 	if err := c.ShouldBind(req); err != nil {
 		glog.Warnf("req params check failed:%v,req params:%+v", err, req)
@@ -66,14 +69,42 @@ func List(c *gin.Context) {
 
 func Detail(c *gin.Context) {
 	workerId := c.Param("worker_id")
+	glog.Infof("Detail worker:%v", workerId)
 	worker, err := mysql.GetWorker(workerId)
 	if err != nil {
 		geminiErr := gerr.FromError(err)
-		glog.Errorf(geminiErr.ErrorWithMsg(err, "add worker failed"))
+		glog.Errorf(geminiErr.ErrorWithMsg(err, "get worker detail failed"))
 		response.Error(c, geminiErr)
 		return
 	}
-	response.Success(c, worker)
+	req := mysql.ListBankCardReq{
+		WorkerName: worker.Name,
+		PageNum:    1,
+		PageSize:   99,
+	}
+	cardList, err := mysql.ListBankCard(&req)
+	if err != nil {
+		geminiErr := gerr.FromError(err)
+		glog.Errorf(geminiErr.ErrorWithMsg(err, "get worker detail failed"))
+		response.Error(c, geminiErr)
+		return
+	}
+	result := new(vo.WorkerDetail)
+	result.WorkerInfo = worker
+	result.BankCardList = cardList
+	var cardIdList []string
+	for _, card := range cardList.BankCards {
+		cardIdList = append(cardIdList, card.CardId)
+	}
+	totalIncome, err := gutils.GetTotalIncome(cardIdList)
+	if err != nil {
+		geminiErr := gerr.FromError(err)
+		glog.Errorf(geminiErr.ErrorWithMsg(err, "calculate total income failed"))
+		response.Error(c, geminiErr)
+		return
+	}
+	result.CurrentYearTotalIncome = totalIncome
+	response.Success(c, result)
 	return
 }
 

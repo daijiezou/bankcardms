@@ -17,5 +17,5 @@ func (m *BankCardTrade) TableName() string {
 
 type BankCardTradeList struct {
 	ListCount      int             `json:"list_count"`
-	BankCardTrades []BankCardTrade `json:"workers"`
+	BankCardTrades []BankCardTrade `json:"bank_card_trades"`
 }

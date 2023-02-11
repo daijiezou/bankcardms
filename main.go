@@ -5,6 +5,7 @@ import (
 	"BankCardMS/data/mysql"
 	"BankCardMS/inits"
 	"BankCardMS/pkg/glog"
+	"BankCardMS/pkg/idgenerator"
 	"BankCardMS/pkg/jwt"
 	"BankCardMS/pkg/middware"
 	"BankCardMS/pkg/shutdown"
@@ -29,6 +30,7 @@ func init() {
 	mysql.Init(config.Config.DbDsn)
 	inits.InitAdmin()
 	jwt.InitSecret()
+	idgenerator.Init()
 }
 
 func main() {

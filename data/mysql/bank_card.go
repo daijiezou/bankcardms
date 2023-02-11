@@ -3,7 +3,6 @@ package mysql
 import (
 	"BankCardMS/data/do"
 	"BankCardMS/pkg/gerr"
-	"BankCardMS/service/utils"
 	"github.com/pkg/errors"
 )
 
@@ -71,12 +70,22 @@ func UpdateBankCard(cardId string, bankCard *do.BankCard, cols ...string) error 
 	return nil
 }
 
-func ListBankCard(req *utils.CommonListReq) (result *do.BankCardList, err error) {
-	result = new(do.BankCardList)
-	session := MySQL().Table("worker").Select("*").And("delete_time = ?", 0)
-	if req.Filter != "" {
-		session.And("name like ?", "%"+req.Filter+"%")
+type ListBankCardReq struct {
+	BankName   string `json:"bank_name" form:"bank_name"`
+	WorkerName string `json:"worker_name" form:"worker_name"`
+	PageNum    int    `json:"page_num" form:"page_num" binding:"min=1"`
+	PageSize   int    `json:"page_size" form:"page_size" binding:"min=1,max=100"`
+}
 
+func ListBankCard(req *ListBankCardReq) (result *do.BankCardList, err error) {
+	result = new(do.BankCardList)
+	session := MySQL().Table("bank_card").Select("bank_card.*,worker.name").And("bank_card.delete_time = ?", 0).
+		Join("INNER", "worker", "bank_card.card_owner = worker.worker_id")
+	if req.BankName != "" {
+		session.And("bank_card.bank_name like ?", "%"+req.BankName+"%")
+	}
+	if req.WorkerName != "" {
+		session.And("worker.name like ?", "%"+req.WorkerName+"%")
 	}
 	count, err := session.
 		Limit(req.PageSize, req.PageSize*(req.PageNum-1)).
