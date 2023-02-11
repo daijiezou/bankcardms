@@ -8,7 +8,7 @@ type BankCard struct {
 	Remarks       string `json:"remarks" xorm:"not null TEXT"`
 	CreateTime    int64  `json:"create_time" xorm:"not null default 0 BIGINT"`
 	UpdateTime    int64  `json:"update_time" xorm:"not null default 0 BIGINT"`
-	DeleteTime    int64  `json:"delete_time" xorm:"not null default 0 BIGINT"`
+	DeleteTime    int64  `json:"delete_time" xorm:"deleted not null default 0 BIGINT"`
 }
 
 func (m *BankCard) TableName() string {

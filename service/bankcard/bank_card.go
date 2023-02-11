@@ -40,6 +40,7 @@ func Add(c *gin.Context) {
 		Remarks:    req.Remarks,
 		CreateTime: now,
 		UpdateTime: now,
+		DeleteTime: 0,
 	}
 	err = mysql.AddBankCard(bankCard)
 	if err != nil {

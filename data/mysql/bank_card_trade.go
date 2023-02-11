@@ -96,6 +96,7 @@ func ListBankCardTrade(req *utils.CommonListReq, bankCardId string) (result *do.
 
 func GetBankCardIncome(bankCardId string, start, end int64) (result int64, err error) {
 	count, err := MySQL().Table("bank_card_trade").Where("card_id = ?", bankCardId).
+		And("delete_time = 0").
 		Where("trade_time >= ? and trade_time <= ?", start, end).Sum(new(do.BankCardTrade), "trade_amount")
 	if err != nil {
 		gErr := &gerr.GeminiError{

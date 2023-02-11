@@ -68,8 +68,13 @@ func List(c *gin.Context) {
 }
 
 func Detail(c *gin.Context) {
+	req := new(utils.CommonListReq)
+	if err := c.ShouldBind(req); err != nil {
+		glog.Warnf("req params check failed:%v,req params:%+v", err, req)
+		response.ErrorCode(c, gerr.ErrCodeWrongParam)
+		return
+	}
 	workerId := c.Param("worker_id")
-	glog.Infof("Detail worker:%v", workerId)
 	worker, err := mysql.GetWorker(workerId)
 	if err != nil {
 		geminiErr := gerr.FromError(err)
@@ -77,12 +82,12 @@ func Detail(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
-	req := mysql.ListBankCardReq{
+	in := mysql.ListBankCardReq{
 		WorkerName: worker.Name,
-		PageNum:    1,
-		PageSize:   99,
+		PageNum:    req.PageNum,
+		PageSize:   req.PageSize,
 	}
-	cardList, err := mysql.ListBankCard(&req)
+	cardList, err := mysql.ListBankCard(&in)
 	if err != nil {
 		geminiErr := gerr.FromError(err)
 		glog.Errorf(geminiErr.ErrorWithMsg(err, "get worker detail failed"))

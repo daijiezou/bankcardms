@@ -2,4 +2,4 @@
 #syslog
 syslogd
 # start service
-/usr/bank-card-ms -env release -config /usr/config/config.yml
+/usr/bank-card-ms -env release -config /usr/config/config.yaml

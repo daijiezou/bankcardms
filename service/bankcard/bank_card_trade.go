@@ -42,6 +42,7 @@ func AddTrade(c *gin.Context) {
 		TradeTime:   req.TradeTime,
 		CreateTime:  now,
 		UpdateTime:  now,
+		DeleteTime:  0,
 	}
 	err = mysql.AddBankCardTrade(trade)
 	if err != nil {

@@ -30,7 +30,7 @@ local: tidy
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build  -o bank-card-ms ${LDFLAGS} main.go
 
 run:
-	go run main.go  -env release -config ./config/config.yml
+	go run main.go  -env release -config ./config/config.yaml
 
 .PHONY: image
 image:
