@@ -14,7 +14,7 @@ const (
 func Router(e *gin.Engine) {
 	r := e.Group(RootApi)
 	r.Use(middware.JWTAuthMiddleware())
-	r.POST("", worker.Add)
+	r.POST("/worker", worker.Add)
 	r.GET("", worker.List)
 	r.GET("/worker/:worker_id", worker.Detail)
 	r.DELETE("/worker/:worker_id", worker.Delete)

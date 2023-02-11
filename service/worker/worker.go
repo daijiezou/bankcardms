@@ -15,7 +15,7 @@ import (
 
 func Add(c *gin.Context) {
 	type AddWorkerRequest struct {
-		WorkerId string `json:"workerId" binding:"required"`
+		WorkerId string `json:"worker_id" binding:"required"`
 		Name     string `json:"name" binding:"required"`
 		Address  string `json:"address"`
 		Remarks  string `json:"remarks"`
