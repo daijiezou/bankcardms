@@ -37,8 +37,8 @@ func GenToken(userId int64, username string) (accessToken string, err error) {
 		UserId:   userId,
 		UserName: username,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Second * time.Duration(7200)).Unix(), // 过期时间
-			Issuer:    "gemini-userauth",                                        // 签发人
+			ExpiresAt: time.Now().Add(time.Second * time.Duration(14400)).Unix(), // 过期时间
+			Issuer:    "gemini-userauth",                                         // 签发人
 		},
 	}
 

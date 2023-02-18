@@ -44,13 +44,15 @@ func Add(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
-	response.Success(c, nil)
+	response.Success(c, gin.H{
+		"worker_id": req.WorkerId,
+	})
 	return
 }
 
 func List(c *gin.Context) {
 	glog.Info("list workers")
-	req := new(utils.CommonListReq)
+	req := new(mysql.WorkerReq)
 	if err := c.ShouldBind(req); err != nil {
 		glog.Warnf("req params check failed:%v,req params:%+v", err, req)
 		response.ErrorCode(c, gerr.ErrCodeWrongParam)
@@ -154,6 +156,8 @@ func Update(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
-	response.Success(c, nil)
+	response.Success(c, gin.H{
+		"worker_id": workerId,
+	})
 	return
 }

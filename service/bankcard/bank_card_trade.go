@@ -51,7 +51,9 @@ func AddTrade(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
-	response.Success(c, nil)
+	response.Success(c, gin.H{
+		"trade_id": trade.TradeId,
+	})
 	return
 }
 

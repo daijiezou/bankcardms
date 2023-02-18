@@ -19,7 +19,7 @@ type BankCard struct {
 }
 
 type BankCardDetail struct {
-	BankCardInfo           *do.BankCard          `json:"bank_card_info"`
+	BankCardInfo           *do.BankCardDetail    `json:"bank_card_info"`
 	TradeList              *do.BankCardTradeList `json:"trade_list"`
 	CurrentYearTotalIncome int64                 `json:"current_year_total_income"`
 }

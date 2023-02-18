@@ -49,7 +49,9 @@ func Add(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
-	response.Success(c, nil)
+	response.Success(c, gin.H{
+		"card_id": req.CardId,
+	})
 	return
 }
 
@@ -167,6 +169,8 @@ func Update(c *gin.Context) {
 		response.Error(c, geminiErr)
 		return
 	}
-	response.Success(c, nil)
+	response.Success(c, gin.H{
+		"card_id": cardId,
+	})
 	return
 }

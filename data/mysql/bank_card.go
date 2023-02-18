@@ -38,9 +38,10 @@ func DeleteBankCard(cardId string) error {
 	return nil
 }
 
-func GetBankCard(cardId string) (*do.BankCard, error) {
-	bankCard := new(do.BankCard)
-	has, err := MySQL().Where("card_id = ?", cardId).Get(bankCard)
+func GetBankCard(cardId string) (*do.BankCardDetail, error) {
+	bankCard := new(do.BankCardDetail)
+	has, err := MySQL().Table("bank_card").Select("bank_card.*,worker.name").
+		Where("card_id = ?", cardId).Join("INNER", "worker", "bank_card.card_owner = worker.worker_id").Get(bankCard)
 	if err != nil {
 		gErr := &gerr.GeminiError{
 			Code:     gerr.ErrCodeDbError,

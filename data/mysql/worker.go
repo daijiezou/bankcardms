@@ -4,7 +4,6 @@ import (
 	"BankCardMS/data/do"
 	"BankCardMS/pkg/gerr"
 	"BankCardMS/pkg/glog"
-	"BankCardMS/service/utils"
 	"github.com/pkg/errors"
 )
 
@@ -73,13 +72,24 @@ func UpdateWorker(workerId string, worker *do.Worker, cols ...string) error {
 	return nil
 }
 
-func ListWorkers(req *utils.CommonListReq) (result *do.WorkerList, err error) {
+type WorkerReq struct {
+	WorkerId   string `json:"worker_id" form:"worker_id"`
+	WorkerName string `json:"worker_name" form:"worker_name"`
+	PageNum    int    `json:"page_num" form:"page_num" binding:"min=1"`
+	PageSize   int    `json:"page_size" form:"page_size" binding:"min=1,max=100"`
+}
+
+func ListWorkers(req *WorkerReq) (result *do.WorkerList, err error) {
 	result = new(do.WorkerList)
 	session := MySQL().Table("worker").Select("*").And("delete_time = ?", 0)
-	if req.Filter != "" {
-		session.And("name like ?", "%"+req.Filter+"%")
+	if req.WorkerName != "" {
+		session.And("name like ?", "%"+req.WorkerName+"%")
 
 	}
+	if req.WorkerId != "" {
+		session.And("worker_id like ?", "%"+req.WorkerId+"%")
+	}
+
 	count, err := session.
 		Limit(req.PageSize, req.PageSize*(req.PageNum-1)).
 		Desc("worker.create_time").
