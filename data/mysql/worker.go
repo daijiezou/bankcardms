@@ -76,7 +76,7 @@ type WorkerReq struct {
 	WorkerId   string `json:"worker_id" form:"worker_id"`
 	WorkerName string `json:"worker_name" form:"worker_name"`
 	PageNum    int    `json:"page_num" form:"page_num" binding:"min=1"`
-	PageSize   int    `json:"page_size" form:"page_size" binding:"min=1,max=100"`
+	PageSize   int    `json:"page_size" form:"page_size" binding:"min=1,max=2000"`
 }
 
 func ListWorkers(req *WorkerReq) (result *do.WorkerList, err error) {

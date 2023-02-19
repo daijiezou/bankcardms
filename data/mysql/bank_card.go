@@ -75,7 +75,7 @@ type ListBankCardReq struct {
 	BankName   string `json:"bank_name" form:"bank_name"`
 	WorkerName string `json:"worker_name" form:"worker_name"`
 	PageNum    int    `json:"page_num" form:"page_num" binding:"min=1"`
-	PageSize   int    `json:"page_size" form:"page_size" binding:"min=1,max=100"`
+	PageSize   int    `json:"page_size" form:"page_size" binding:"min=1,max=2000"`
 }
 
 func ListBankCard(req *ListBankCardReq) (result *do.BankCardList, err error) {
