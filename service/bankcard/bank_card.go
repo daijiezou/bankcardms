@@ -15,7 +15,7 @@ import (
 
 func Add(c *gin.Context) {
 	type AddWorkerRequest struct {
-		CardId    string `json:"card_id" binding:"required"`
+		CardId    string `json:"card_id" binding:"required,numeric,min=16,max=19"`
 		CardOwner string `json:"card_owner" binding:"required"`
 		BankName  string `json:"bank_name" binding:"required"`
 		Remarks   string `json:"remarks"`
@@ -128,7 +128,7 @@ func Delete(c *gin.Context) {
 
 func Update(c *gin.Context) {
 	type AddWorkerRequest struct {
-		CardOwner string `json:"card_owner" binding:"required"`
+		CardOwner string `json:"card_owner" binding:"required,len=18"`
 		BankName  string `json:"bank_name" binding:"required"`
 		Remarks   string `json:"remarks"`
 	}
